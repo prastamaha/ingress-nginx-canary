@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myexampleapp-canary-ingress
+  labels:
+    kubernetes.io/object: ingress
+    app: myexampleapp
+    env: canary
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-by-header: "X-canary"
+    nginx.ingress.kubernetes.io/canary-by-header-value: "enabled"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: myexampleapp.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: myexampleapp-canary-service
+            port:
+              number: 80

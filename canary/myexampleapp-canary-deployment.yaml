@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    kubernetes.io/object: deployment
+    app: myexampleapp
+    env: canary
+  name: myexampleapp-canary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myexampleapp
+      env: canary
+  template:
+    metadata:
+      labels:
+        app: myexampleapp
+        env: canary
+    spec:
+      containers:
+      - image: prasta/myexampleapp:v2
+        name: myexampleapp

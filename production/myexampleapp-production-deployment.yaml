@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    kubernetes.io/object: deployment
+    app: myexampleapp
+    env: production
+  name: myexampleapp-production-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myexampleapp
+      env: production
+  template:
+    metadata:
+      labels:
+        app: myexampleapp
+        env: production
+    spec:
+      containers:
+      - image: prasta/myexampleapp:v1
+        name: myexampleapp

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myexampleapp-production-ingress
+  labels:
+    kubernetes.io/object: ingress
+    app: myexampleapp
+    env: production
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: myexampleapp.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: myexampleapp-production-service
+            port:
+              number: 80
